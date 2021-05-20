@@ -1,0 +1,93 @@
+
+
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jira issues retrieval</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"/>
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>   
+</head>
+<body>
+ 
+ <script src="{{ url_for('static', filename = 'custom2.js') }}" type="text/javascript"> </script>
+ <!--<script src="{{ url_for('static', filename = 'autoss.js') }}" type="text/javascript"> </script>-->
+ <script >
+ 	var availablenewTags = "xyz";
+    $.ajax({  
+                url:"/database",  
+                method:"GET",  
+                datatype: "json",
+                success:function(data)  
+                {  
+                	alert(data)
+                     availablenewTags = data
+                }  
+           });  
+
+$( function() {
+	var i;
+	var newTags=[];
+	for (var p in availablenewTags)
+	{
+		newTags.push(p)
+	} 
+    
+    $( "#tags" ).autocomplete({
+      source: newTags
+    });
+    
+  } );
+ </script>
+ 
+<style>
+.row {padding:10px;}
+</style>
+<div class="container">  
+                <br />  
+                <br />  
+                <h2 align="left">Enter Query: </h2><div id="querybox"></div>  
+                <div class="form-group">  
+                     <form name="my_queries" id="my_queries"> 
+                     				<div class="row">
+                     				<div class="col-md-2"><input type="text" name="From" id="From" class="form-control" placeholder="From (yy-mm-dd)"/></div>
+                     				<div class="col-md-2"><input type="text" name="To" id="to" class="form-control" placeholder="To (yy-mm-dd)"/></div>
+                     				</div>
+                           			<div id="InputsWrapper">
+          								 <div class="row">
+                                         <div class="row"><input type = "text" name ="tag[]" id = "tags" >
+                                         <!--	<datalist id="namelist" style="height:10; overflow:hidden">
+                                         		<option>Mansi</option>
+                                         		<option>Sinha</option>
+                                         		<option>Singh</option>
+                                         		<option>Deepu</option>
+                                         		<option>Shruti</option>
+                                         		<option>Rohan</option>
+                                         		<option>Abc</option>
+                                         		<option>xyz</option>
+                                         		<option>lala</option>
+                                         		<option>hahaha</option>
+                                         	 </datalist>
+                                         	--> 
+                                         	<input type = "text" name ="operator[]" id="ops"><input type="text" name="val[]">
+                                         <button type="button" name="add" id="AddMoreFileBox" class="btn btn-success">Add More</button>
+
+                                     </div>
+           </div>
+         </div>
+         <br/>
+         						<button type="button" name="search_text" id="Addtext" class="btn btn-success" value="">Add text Search</button>
+         						<button type="button" name="filter_id" id="Addfilter" class="btn btn-success" value="">Filter id</button>
+                               <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />  
+                     </form>  
+                </div>  
+           </div> 
+<h2 align="center"> </h2><div id="resultbox"></div> 
+</body>
+</html>
