@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+<title>Issues Analysis</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"/>
+  <link rel="shortcut icon" href="#">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 	
+</head>
+<body>
+
+<style>
+  .range-slider{
+    position: relative;
+    width: 500px;
+}
+
+.range-slider > input.range{
+  width: 100%;
+}
+
+.range-slider > .range-badge{
+    position: absolute;
+    left: 0%;
+    top: 20px;
+    background: #000;
+    color: #fff;
+    width: 20px;
+    text-align: center;
+    margin-left: -10px;
+    padding: 5px 0;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {  
+	  var badge = $('.range-badge');
+
+$('#myRange').on('change', function(){
+  		var current = $(this).val();
+
+   		 badge.text(current).animate({
+     	 'left': current+'%'
+    	});
+        $.ajax({
+                url:"/modelos",  
+                method:"POST",  
+                data:$('#second_form').serialize(),
+                success:function(data)  
+                {  
+                     $('#resultbox').html(data);  
+                     
+                } 
+       
+        });
+    });
+});
+</script>
+
+<div class="container"> 
+	<br/>
+	<br/>
+<div class="form_group">  
+<form name="second_form" id="second_form">
+	<div class="range-slider">
+    <input type="range" id="myRange" name="mysl" min="-50" max="50" step="1" default_value="0"/>
+    <div class="range-badge"></div>
+    <br/>
+    <br/>
+</div>
+</form>	
+</div>	
+</div>
+<h2 align="center"> </h2><div id="resultbox"></div> 
+</body>
+</html>
